@@ -1,25 +1,26 @@
-const userChosenKeyName = "level";
+const addMovieBtn = document.getElementById("add-movie-btn");
+const searchBtn = document.getElementById("search-btn");
 
-let person = {
-  "first name": "Bruce", //all strings are valid key names if enclosed in brackets. still dont use white spaces.
-  age: 30,
-  hobbies: ["Games", "Anime"],
-  greet: function () {
-    alert("Hi there!");
-  },
-  1.5: "hello",
-};
+const movies = [];
 
-const keyName = "first name";
+function addMovieHandler() {
+  const title = document.getElementById("title").value;
+  const extraName = document.getElementById("extra-name").value;
+  const extraValue = document.getElementById("extra-value").value;
 
-delete person.age; //delete properties
-// person.age = undefined;//works but dont use. not recommended.
+  if (title.trim() === "" || extraValue === "" || extraName === "") {
+    return;
+  }
 
-person.age = null; //sets age to null
+  const newMovie = {
+    info: {
+      title, //you can omit the colon and value if it has same identifier
+      [extraName]: extraValue,
+    },
+    id: Math.random(),
+  };
+  movies.push(newMovie);
+  console.log(newMovie);
+}
 
-person.isAdmin = true; //adding properties
-
-console.log(person["first name"]); //calling these keys use special syntax
-console.log(person[keyName]); //alternate way to call
-console.log(person[1.5]);
-// console.log(person["1.5"]);//also works.
+addMovieBtn.addEventListener("click", addMovieHandler);
