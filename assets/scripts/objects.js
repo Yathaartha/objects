@@ -20,7 +20,25 @@ function addMovieHandler() {
     id: Math.random(),
   };
   movies.push(newMovie);
-  console.log(newMovie);
+  renderMovies();
+}
+
+function renderMovies() {
+  const movieList = document.getElementById("movie-list");
+
+  if (movies.length === 0) {
+    movieList.classList.remove("visible");
+  } else {
+    movieList.classList.add("visible");
+  }
+
+  movieList.innerHTML = "";
+
+  movies.forEach((movie) => {
+    const movieEl = document.createElement("li");
+    movieEl.textContent = movie.info.title; //accessing nested object properties
+    movieList.append(movieEl);
+  });
 }
 
 addMovieBtn.addEventListener("click", addMovieHandler);
