@@ -1,4 +1,4 @@
-// "use strict";//to go into strict mode
+"use strict"; //to go into strict mode
 
 const addMovieBtn = document.getElementById("add-movie-btn");
 const searchBtn = document.getElementById("search-btn");
@@ -10,13 +10,18 @@ function addMovieHandler() {
   const extraName = document.getElementById("extra-name").value;
   const extraValue = document.getElementById("extra-value").value;
 
-  if (title.trim() === "" || extraValue === "" || extraName === "") {
-    return;
-  }
-
   const newMovie = {
     info: {
-      title,
+      set title(val) {
+        if (val.trim() === "") {
+          this._title = "DEFAULT";
+          return;
+        }
+        this._title = val;
+      },
+      get title() {
+        return this._title;
+      },
       [extraName]: extraValue,
     },
     id: Math.random(),
@@ -24,6 +29,10 @@ function addMovieHandler() {
       return this.info.title.toUpperCase();
     },
   };
+
+  newMovie.info.title = title;
+  console.log(newMovie.info.title);
+
   movies.push(newMovie);
   renderMovies();
 }
@@ -56,7 +65,7 @@ function renderMovies(filter = "") {
     let text = getFormattedTitle.call(movie) + " - ";
     // let text = getFormattedTitle.apply(movie) + " - ";same as call but the arguments are passed as arrays
     for (const key in info) {
-      if (key !== "title") {
+      if (key !== "title" && key !== "_title") {
         text = text + `${key}: ${info[key]}`;
       }
     }
@@ -65,10 +74,11 @@ function renderMovies(filter = "") {
   });
 }
 
-function searchMovieHandler() {
+const searchMovieHandler = () => {
+  console.log(this);
   const filterTerm = document.getElementById("filter-title").value;
   renderMovies(filterTerm);
-}
+};
 
 addMovieBtn.addEventListener("click", addMovieHandler);
 searchBtn.addEventListener("click", searchMovieHandler);
