@@ -1,3 +1,5 @@
+// "use strict";//to go into strict mode
+
 const addMovieBtn = document.getElementById("add-movie-btn");
 const searchBtn = document.getElementById("search-btn");
 
@@ -18,7 +20,7 @@ function addMovieHandler() {
       [extraName]: extraValue,
     },
     id: Math.random(),
-    getFormattedTitle: function () {
+    getFormattedTitle() {
       return this.info.title.toUpperCase();
     },
   };
@@ -48,9 +50,10 @@ function renderMovies(filter = "") {
     const { info, ...otherProps } = movie;
     // const { title: movieTitle } = info;
     console.log(otherProps);
-    let text = movieTitle + " - ";
-    // const { getFormattedTitle } = movie;
-    let text = movie.getFormattedTitle() + " - ";
+    // let text = movieTitle + " - ";
+    let { getFormattedTitle } = movie;
+    getFormattedTitle = getFormattedTitle.bind(movie);
+    let text = getFormattedTitle() + " - ";
     for (const key in info) {
       if (key !== "title") {
         text = text + `${key}: ${info[key]}`;
