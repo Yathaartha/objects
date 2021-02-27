@@ -52,8 +52,9 @@ function renderMovies(filter = "") {
     console.log(otherProps);
     // let text = movieTitle + " - ";
     let { getFormattedTitle } = movie;
-    getFormattedTitle = getFormattedTitle.bind(movie);
-    let text = getFormattedTitle() + " - ";
+    // getFormattedTitle = getFormattedTitle.bind(movie);
+    let text = getFormattedTitle.call(movie) + " - ";
+    // let text = getFormattedTitle.apply(movie) + " - ";same as call but the arguments are passed as arrays
     for (const key in info) {
       if (key !== "title") {
         text = text + `${key}: ${info[key]}`;
