@@ -40,6 +40,8 @@ function renderMovies(filter = "") {
 
   filteredMovies.forEach((movie) => {
     const movieEl = document.createElement("li");
+    // if ("info" in movie){
+    // }//checking if the key is in the object
     const { info, ...otherProps } = movie;
     const { title: movieTitle } = info;
     console.log(otherProps);
