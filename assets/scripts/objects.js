@@ -14,10 +14,13 @@ function addMovieHandler() {
 
   const newMovie = {
     info: {
-      title, //you can omit the colon and value if it has same identifier
+      title,
       [extraName]: extraValue,
     },
     id: Math.random(),
+    getFormattedTitle: function () {
+      return this.info.title.toUpperCase();
+    },
   };
   movies.push(newMovie);
   renderMovies();
@@ -43,9 +46,11 @@ function renderMovies(filter = "") {
     // if ("info" in movie){
     // }//checking if the key is in the object
     const { info, ...otherProps } = movie;
-    const { title: movieTitle } = info;
+    // const { title: movieTitle } = info;
     console.log(otherProps);
     let text = movieTitle + " - ";
+    // const { getFormattedTitle } = movie;
+    let text = movie.getFormattedTitle() + " - ";
     for (const key in info) {
       if (key !== "title") {
         text = text + `${key}: ${info[key]}`;
